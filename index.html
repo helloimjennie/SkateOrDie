@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skate or Die!</title>
+    <script src="./lib/phaser.js"></script>
+    
+    <!-- Scenes -->
+    <script src="./src/scenes/Load.js"></script>
+    <script src="./src/scenes/Menu.js"></script>
+    <script src="./src/scenes/Play.js"></script>
+    <script src="./src/scenes/GameOver.js"></script>
+    <script src="./src/scenes/Credits.js"></script>
+    <script src="./src/scenes/Instruction.js"></script>
+
+    
+    <!-- Prefabs -->
+    <script src="./src/prefabs/Bus.js"></script>
+    <script src="./src/prefabs/Child.js"></script>
+    <script src="./src/prefabs/Grandma.js"></script>
+    <script src="./src/prefabs/Hole.js"></script>
+    
+    <!-- Main Game Config -->
+    <script src="./src/main.js"></script>
+
+    <style>
+        /* Style for centering the game canvas */
+        body {
+            background-color: rgb(68, 87, 66);
+            display: flex;               /* Enables flexbox layout */
+            justify-content: center;     /* Centers horizontally */
+            align-items: center;         /* Centers vertically */
+            height: 100vh;               /* Full viewport height */
+            margin: 0;                   /* Removes default margin */
+            overflow: hidden;            /* Prevents scrolling */
+        }
+
+        canvas {
+            display: block;              /* Removes any extra inline space */
+        }
+    </style>
+</head>
+<body>
+    <!-- Game container -->
+    <div id="game-container"></div>
+</body>
+</html>
