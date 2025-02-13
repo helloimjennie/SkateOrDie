@@ -1,6 +1,10 @@
 // Name: Jennie Le
-// Game: Skate or Die
-// Completion Time: 20 hrs
+// Game: Skate or Die!
+// Completion Time: 30 hrs
+// Description: "Skate or Die!" is an endless runner with a skateboarding theme. 
+// Players navigate through obstacles and avoid colliding with police officers and cats.
+// The game features a vibrant visual style inspired by urban skate culture.
+// The game uses a fast-paced soundtrack with a "DJ mix" vibe to enhance immersion.
 
 "use strict"
 
@@ -22,19 +26,13 @@ let config = {
 
 let game = new Phaser.Game(config)
 
-// set UI sizes
 let borderUISize = game.config.height / 15
 let borderPadding = borderUISize / 3
-
-// define globals
 let centerX = game.config.width / 2
 let centerY = game.config.height / 2
 let w = game.config.width
 let h = game.config.height
-
-// reserve key bindings
 let keyLEFT, keyRIGHT, keyUP, keyDOWN, keyENTER, keyW, keyD, keyA, keyE
-
-const SkaterVelocity = 200 // Updated from BusVelocity
-let skater = null // Updated from bus
+const SkaterVelocity = 200 
+let skater = null 
 let cursors;

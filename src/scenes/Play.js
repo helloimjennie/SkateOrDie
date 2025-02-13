@@ -4,72 +4,61 @@ class Play extends Phaser.Scene {
     }
 
     init() {
-        // Initialize any global settings here
     }
 
     create() {
-        // Tile sprite
         this.road = this.add.tileSprite(0, 0, 1280, 1080, 'road').setOrigin(0, 0);
 
-        // Define keys
         keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
         keyRIGHT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
         keyUP = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP);
         keyDOWN = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.DOWN);
 
-        // Initialize score
         this.p1Score = 0;
 
-        // Display the score
         this.scoreText = this.add.text(20, 20, `Score: ${this.p1Score}`, {
-            fontFamily: 'Arial',
+            fontFamily: 'Victor Mono',
             fontSize: '32px',
-            color: '#AAFF00',
+            color: '#FFFFFF',
             fontWeight: 'bold'
         });
 
-        // START! UI
         this.fireText = this.add.text(game.config.width / 2, game.config.height / 2, 'START!', {
-            fontFamily: 'Arial',
+            fontFamily: 'Victor Mono',
             fontSize: '32px',
-            color: '#AAFF00',
+            color: '#4F7942',
             fontWeight: 'bold'
         }).setOrigin(0.5);
 
-        // Hide START! text
         this.time.delayedCall(2000, () => {
             this.fireText.visible = false;
         });
 
-        // Game over flag
         this.gameOver = false;
-
-        // Skater animations
+        
         this.anims.create({
             key: 'drive',
             frameRate: 6,
             repeat: -1,
-            frames: this.anims.generateFrameNumbers('bus2', {
+            frames: this.anims.generateFrameNumbers('skater', {
                 start: 0,
                 end: 1
             })
         });
-
-        // Set up player skater (physics sprite) and set properties
         Skater = this.physics.add.sprite(4, centerY, 'bus').setOrigin(0.5);
         Skater.setCollideWorldBounds(true);
         Skater.anims.play('drive');
-        Skater.setBounce(0.5);
-        Skater.setImmovable();
-        Skater.setMaxVelocity(0, 500);
-        Skater.setDragY(100);
-        Skater.setDepth(3); // Ensures that skater stays above other sprites
-        Skater.destroyed = false; // Custom property to track skater state
+        Skater.setBounce(0.2);
+        Skater.setImmovable(false);
+        Skater.setMaxVelocity(0, 300);
+        Skater.setDragY(200);
+        Skater.setDragX(200);
+        Skater.setDepth(3);
+        Skater.destroyed = false;
         Skater.setSize(100, 175, true);
         Skater.setOffset(100, 75);
-
-        // Define skater velocity
-        this.SkaterVelocity = 100;
+        
+        this.SkaterVelocity = 150;        
 
         this.kittySpeed = -360;
         this.policeSpeed = -360;
@@ -84,7 +73,7 @@ class Play extends Phaser.Scene {
 
         // Set up repeated spawning for police
         this.time.addEvent({
-            delay: 2000, // Spawn a police car every 3 seconds
+            delay: 5000, // Spawn a police every 3 seconds
             callback: this.addPolice,
             callbackScope: this,
             loop: true
@@ -150,9 +139,10 @@ class Play extends Phaser.Scene {
     update() {
         this.road.tilePositionX -= -5;
 
-        // START! check
+        // START! 
         if (Phaser.Input.Keyboard.JustDown(keyENTER)) {
             this.scene.start('instructionScene');
+            this.sound.play('dj');
         }
 
         // Make sure skater is alive

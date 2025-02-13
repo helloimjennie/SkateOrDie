@@ -15,30 +15,23 @@ class Menu extends Phaser.Scene {
 
         // Assets
         this.load.image('road', './assets/road.png');
-        this.load.image('car', './assets/skater.png');
-        this.load.image('kitty', './assets/kitty.png'); // Updated from 'child' to 'kitty'
-        this.load.image('police', './assets/police.png'); // Updated from 'grandma' to 'police'
+        this.load.image('skater2', './assets/skater.png');
+        this.load.image('kitty', './assets/kitty.png'); 
+        this.load.image('police', './assets/police.png'); 
 
-        this.load.spritesheet('bus2', './assets/skater2.png', {
+        this.load.spritesheet('skater', './assets/skater2.png', {
             frameWidth: 300,
             frameHeight: 300
         });
-
-        this.load.spritesheet('kittyRUN', './assets/kidrun.png', { // Updated from 'childRUN' to 'kittyRUN'
-            frameWidth: 64,
-            frameHeight: 32
-        });
-
-        this.load.image('hole', './assets/hole.png');
 
         // Load audio
         this.load.audio('music', './assets/music.wav');
         this.load.audio('crash', './assets/sound effects/crash.wav');
         this.load.audio('skate', './assets/sound effects/skate.mp3');
-        this.load.audio('beep', './assets/sound effects/scratch3.wav');
-        this.load.audio('meow', './assets/sound effects/kitty.mp3'); // Updated from 'kidscream' to 'kitty'
-        this.load.audio('sirens', './assets/sound effects/police.mp3'); // Updated from 'ladyscream' to 'police'
-        this.load.audio('yay', './assets/sound effects/scratch2.wav');
+        this.load.audio('dj', './assets/sound effects/scratch3.wav');
+        this.load.audio('meow', './assets/sound effects/kitty.mp3'); 
+        this.load.audio('sirens', './assets/sound effects/police.mp3'); 
+        this.load.audio('cool', './assets/sound effects/scratch2.wav');
     }
 
     create() {
@@ -53,23 +46,20 @@ class Menu extends Phaser.Scene {
             this.musicPlayed = true;
         }
 
-        // Define keys
         keyENTER = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
         keyE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E);
     }
 
     update() {
         if (Phaser.Input.Keyboard.JustDown(keyENTER) || Phaser.Input.Keyboard.JustDown(keyE)) {
-            // Play sound effect when transitioning to the playScene
-            this.sound.play('beep'); // Beep sound for feedback
-
-            // Start the next scene
             this.scene.start('instructionScene');
+            this.sound.play('dj', { volume: 1 }); // Play DJ sound effect
 
-            // Optional game settings (if needed)
             game.settings = {
                 busSpeed: 3,
             };
         }
     }
 }
+
+
