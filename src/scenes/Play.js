@@ -50,9 +50,9 @@ class Play extends Phaser.Scene {
         Skater.anims.play('drive');
         Skater.setBounce(0.2);
         Skater.setImmovable(false);
-        Skater.setMaxVelocity(0, 300);
-        Skater.setDragY(200);
-        Skater.setDragX(200);
+        Skater.setMaxVelocity(0, 550);
+        Skater.setDragY(300);
+        Skater.setDragX(300);
         Skater.setDepth(3);
         Skater.destroyed = false;
         Skater.setSize(100, 175, true);
