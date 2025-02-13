@@ -1,7 +1,8 @@
 // Name: Jennie Le
 // Game: Skate or Die!
 // Completion Time: 30 hrs
-// Description: "Skate or Die!" is an endless runner with a skateboarding theme. 
+// Creative tilt (technical): If you press enter on the play scene, it shows the instructions again. 
+// Creative tilt (visual): The game features a vibrant visual style inspired by urban skate culture!
 // Players navigate through obstacles and avoid colliding with police officers and cats.
 // The game features a vibrant visual style inspired by urban skate culture.
 // The game uses a fast-paced soundtrack with a "DJ mix" vibe to enhance immersion.
