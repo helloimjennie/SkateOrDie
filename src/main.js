@@ -2,7 +2,6 @@
 // Game: Skate or Die
 // Completion Time: 20 hrs
 
-
 "use strict"
 
 let config = {
@@ -28,14 +27,14 @@ let borderUISize = game.config.height / 15
 let borderPadding = borderUISize / 3
 
 // define globals
-let centerX = game.config.width/2
-let centerY = game.config.height/2
+let centerX = game.config.width / 2
+let centerY = game.config.height / 2
 let w = game.config.width
 let h = game.config.height
 
 // reserve key bindings
 let keyLEFT, keyRIGHT, keyUP, keyDOWN, keyENTER, keyW, keyD, keyA, keyE
 
-const BusVelocity = 200
-let bus = null
+const SkaterVelocity = 200 // Updated from BusVelocity
+let skater = null // Updated from bus
 let cursors;

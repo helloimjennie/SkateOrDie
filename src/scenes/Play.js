@@ -44,7 +44,7 @@ class Play extends Phaser.Scene {
         // Game over flag
         this.gameOver = false;
 
-        // Bus animations
+        // Skater animations
         this.anims.create({
             key: 'drive',
             frameRate: 6,
@@ -55,45 +55,45 @@ class Play extends Phaser.Scene {
             })
         });
 
-        // Set up player bus (physics sprite) and set properties
-        Bus = this.physics.add.sprite(4, centerY, 'bus').setOrigin(0.5);
-        Bus.setCollideWorldBounds(true);
-        Bus.anims.play('drive');
-        Bus.setBounce(0.5);
-        Bus.setImmovable();
-        Bus.setMaxVelocity(0, 500);
-        Bus.setDragY(100);
-        Bus.setDepth(3); // Ensures that bus stays above other sprites
-        Bus.destroyed = false; // Custom property to track bus state
-        Bus.setSize(100, 175, true);
-        Bus.setOffset(100,75);
+        // Set up player skater (physics sprite) and set properties
+        Skater = this.physics.add.sprite(4, centerY, 'bus').setOrigin(0.5);
+        Skater.setCollideWorldBounds(true);
+        Skater.anims.play('drive');
+        Skater.setBounce(0.5);
+        Skater.setImmovable();
+        Skater.setMaxVelocity(0, 500);
+        Skater.setDragY(100);
+        Skater.setDepth(3); // Ensures that skater stays above other sprites
+        Skater.destroyed = false; // Custom property to track skater state
+        Skater.setSize(100, 175, true);
+        Skater.setOffset(100, 75);
 
-        // Define bus velocity
-        this.BusVelocity = 100;
+        // Define skater velocity
+        this.SkaterVelocity = 100;
 
-        this.childSpeed = -360;
-        this.grandmaSpeed = -360;
+        this.kittySpeed = -360;
+        this.policeSpeed = -360;
 
-        // Define child and grandma
-        this.child = 0;
-        this.grandma = 0;
+        // Define kitty and police
+        this.kitty = 0;
+        this.police = 0;
 
-        // Groups for children and grandmas
-        this.childGroup = this.add.group({ runChildUpdate: true });
-        this.grandmaGroup = this.add.group({ runChildUpdate: true });
+        // Groups for kitties and police
+        this.kittyGroup = this.add.group({ runChildUpdate: true });
+        this.policeGroup = this.add.group({ runChildUpdate: true });
 
-        // Set up repeated spawning for grandmas
+        // Set up repeated spawning for police
         this.time.addEvent({
-            delay: 2000, // Spawn a grandma every 3 seconds
-            callback: this.addGrandma,
+            delay: 2000, // Spawn a police car every 3 seconds
+            callback: this.addPolice,
             callbackScope: this,
             loop: true
         });
 
-        // Set up repeated spawning for children
+        // Set up repeated spawning for kitties
         this.time.addEvent({
-            delay: 5000, // Spawn a child every 5 seconds
-            callback: this.addChild,
+            delay: 5000, // Spawn a kitty every 5 seconds
+            callback: this.addKitty,
             callbackScope: this,
             loop: true
         });
@@ -101,15 +101,15 @@ class Play extends Phaser.Scene {
         // Cursor keys
         cursors = this.input.keyboard.createCursorKeys();
 
-        // Add event for increasing child spawn rate over time
+        // Add event for increasing kitty spawn rate over time
         this.time.addEvent({
             delay: 20000,
-            callback: this.spamChild,
+            callback: this.spamKitty,
             callbackScope: this,
             loop: true
         });
 
-        this.childSpam = 1;
+        this.kittySpam = 1;
 
         keyENTER = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
 
@@ -127,24 +127,24 @@ class Play extends Phaser.Scene {
         });
     }
 
-    addChild() {
+    addKitty() {
         let speedVary = Phaser.Math.Between(0, 50);
-        let child = new Child(this, this.childSpeed - speedVary, 'childTexture').setScale();
-        child.body.setSize(75, 75);
-        child.body.setOffset(115, 75);
-        this.childGroup.add(child);
-        child.body.setAllowGravity(false);
-        console.log('Child spawned!');
+        let kitty = new Kitty(this, this.kittySpeed - speedVary, 'kittyTexture').setScale();
+        kitty.body.setSize(75, 75);
+        kitty.body.setOffset(115, 75);
+        this.kittyGroup.add(kitty);
+        kitty.body.setAllowGravity(false);
+        console.log('Kitty spawned!');
     }
 
-    addGrandma() {
+    addPolice() {
         let speedVary = Phaser.Math.Between(0, 50);
-        let grandma = new Grandma(this, this.grandmaSpeed - speedVary, 'grandmaTexture').setScale();
-        grandma.body.setSize(75,150);
-        grandma.body.setOffset(125, 75);
-        this.grandmaGroup.add(grandma);
-        grandma.body.setAllowGravity(false);
-        console.log('Grandma spawned!');
+        let police = new Police(this, this.policeSpeed - speedVary, 'policeTexture').setScale();
+        police.body.setSize(75, 150);
+        police.body.setOffset(125, 75);
+        this.policeGroup.add(police);
+        police.body.setAllowGravity(false);
+        console.log('Police spawned!');
     }
 
     update() {
@@ -155,24 +155,24 @@ class Play extends Phaser.Scene {
             this.scene.start('instructionScene');
         }
 
-        // Make sure bus is alive
-        if (!Bus.destroyed) {
+        // Make sure skater is alive
+        if (!Skater.destroyed) {
             // Check player input
             if (cursors.up.isDown) {
-                Bus.body.velocity.y -= this.BusVelocity;
+                Skater.body.velocity.y -= this.SkaterVelocity;
             } else if (cursors.down.isDown) {
-                Bus.body.velocity.y += this.BusVelocity;
+                Skater.body.velocity.y += this.SkaterVelocity;
             }
         }
 
         // Check for collisions
-        this.physics.world.collide(Bus, this.grandmaGroup, this.gbusCollision, null, this);
-        this.physics.world.collide(Bus, this.childGroup, this.cbusCollision, null, this);
+        this.physics.world.collide(Skater, this.policeGroup, this.pskaterCollision, null, this);
+        this.physics.world.collide(Skater, this.kittyGroup, this.kskaterCollision, null, this);
     }
 
-    cbusCollision(Bus, child) {
-        this.sound.play('kidscream', { volume: 1 });
-        Bus.destroyed = true;
+    kskaterCollision(Skater, kitty) {
+        this.sound.play('meow', { volume: 1 });
+        Skater.destroyed = true;
         this.gameOver = true;
 
         if (this.gameOver === true) {
@@ -182,12 +182,12 @@ class Play extends Phaser.Scene {
         this.time.delayedCall(1500, () => {
             this.scene.start('gameOverScene');
         });
-        child.destroy();
+        kitty.destroy();
     }
 
-    gbusCollision(Bus, grandma) {
-        this.sound.play('ladyscream', { volume: 2 });
-        Bus.destroyed = true;
+    pskaterCollision(Skater, police) {
+        this.sound.play('sirens', { volume: 2 });
+        Skater.destroyed = true;
         this.gameOver = true;
 
         if (this.gameOver === true) {
@@ -197,18 +197,19 @@ class Play extends Phaser.Scene {
         this.time.delayedCall(1500, () => {
             this.scene.start('gameOverScene');
         });
-        grandma.destroy();
-    }
-    
-
-    spamChild() {
-        this.childSpam += 0.25;
-        console.log('Increased child spawn rate!');
+        police.destroy();
     }
 
-    spamGrandma() {
-        this.GrandmaSpam += 0.25;
-        console.log('Increased child spawn rate!');
+    spamKitty() {
+        this.kittySpam += 0.25;
+        console.log('Increased kitty spawn rate!');
+    }
+
+    spamPolice() {
+        this.policeSpam += 0.25;
+        console.log('Increased police spawn rate!');
     }
 }
+
+
 

@@ -29,7 +29,7 @@ class InstructionScene extends Phaser.Scene {
 
             // Set global game settings (optional)
             game.settings = {
-                busSpeed: 3,
+                skaterSpeed: 3, // Updated from busSpeed to skaterSpeed
             };
         }
     }

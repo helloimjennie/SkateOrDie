@@ -16,15 +16,15 @@ class Menu extends Phaser.Scene {
         // Assets
         this.load.image('road', './assets/road.png');
         this.load.image('car', './assets/skater.png');
-        this.load.image('child', './assets/kitty.png');
-        this.load.image('grandma', './assets/police.png');
+        this.load.image('kitty', './assets/kitty.png'); // Updated from 'child' to 'kitty'
+        this.load.image('police', './assets/police.png'); // Updated from 'grandma' to 'police'
 
         this.load.spritesheet('bus2', './assets/skater2.png', {
             frameWidth: 300,
             frameHeight: 300
         });
 
-        this.load.spritesheet('childRUN', './assets/kidrun.png', {
+        this.load.spritesheet('kittyRUN', './assets/kidrun.png', { // Updated from 'childRUN' to 'kittyRUN'
             frameWidth: 64,
             frameHeight: 32
         });
@@ -36,8 +36,8 @@ class Menu extends Phaser.Scene {
         this.load.audio('crash', './assets/sound effects/crash.wav');
         this.load.audio('skate', './assets/sound effects/skate.mp3');
         this.load.audio('beep', './assets/sound effects/scratch3.wav');
-        this.load.audio('kidscream', './assets/sound effects/kitty.mp3');
-        this.load.audio('ladyscream', './assets/sound effects/police.mp3');
+        this.load.audio('meow', './assets/sound effects/kitty.mp3'); // Updated from 'kidscream' to 'kitty'
+        this.load.audio('sirens', './assets/sound effects/police.mp3'); // Updated from 'ladyscream' to 'police'
         this.load.audio('yay', './assets/sound effects/scratch2.wav');
     }
 
@@ -61,7 +61,7 @@ class Menu extends Phaser.Scene {
     update() {
         if (Phaser.Input.Keyboard.JustDown(keyENTER) || Phaser.Input.Keyboard.JustDown(keyE)) {
             // Play sound effect when transitioning to the playScene
-            
+            this.sound.play('beep'); // Beep sound for feedback
 
             // Start the next scene
             this.scene.start('instructionScene');
@@ -70,9 +70,6 @@ class Menu extends Phaser.Scene {
             game.settings = {
                 busSpeed: 3,
             };
-
-            // Beep sound for feedback
-            this.sound.play('beep');
         }
     }
 }
